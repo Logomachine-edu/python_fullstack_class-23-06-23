@@ -1,0 +1,1 @@
+# Logomochine class repository
