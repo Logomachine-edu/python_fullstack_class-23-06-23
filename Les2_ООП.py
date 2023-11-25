@@ -1,18 +1,16 @@
 from typing import Union
 
+
 class Library:  
     def __init__(self) -> None:
         self.list_of_books = list()
 
-    def add_book(self, book_title: str, book_author: str) -> str:
-        self.book_title = book_title
-        self.book_author = book_author
-        self.book = (self.book_title, self.book_author)
-        print(f'Книга "{self.book_title}" добавлена')
-        self.list_of_books.append(self.book)
+    def add_book(self, book_title: str, book_author: str) -> list[tuple[str, str]]:      
+        self.list_of_books.append((book_title, book_author))
+        print(f'Книга "{book_title}" добавлена')
         return self
     
-    def remove_book(self, title: str) -> str:
+    def remove_book(self, title: str) -> list[tuple[str, str]]:
         for book_i in self.list_of_books:
             if book_i[0] == title:
                 self.list_of_books.remove(book_i)
@@ -21,21 +19,20 @@ class Library:
         print(f'Книги "{title}" нет в списке')
         return self
         
-    def __getitem__(self, index: Union[int, slice]) -> str:
+    def __getitem__(self, index: Union[int, slice]) -> Union[tuple[str, str], list[tuple[str, str]]]:
         if isinstance(index, int):
-            return f'"{self.list_of_books[index][0]}" - {self.list_of_books[index][1]}'
+            return self.list_of_books[index]
         elif isinstance(index, slice):
             start = index.start if index.start is not None else 0
             stop = index.stop if index.stop is not None else len(self.list_of_books)
             step = index.step if index.step is not None else 1
-            slice_list = [
-                f'"{book[0]}" - {book[1]}'
-                for book in self.list_of_books[start:stop:step]
-            ]
-            return '; '.join(slice_list)
+            return self.list_of_books[start:stop:step]
     
     def __contains__(self, title: str) -> bool:
         return title in [book[0] for book in self.list_of_books]
+    
+    def __str__(self) -> str:
+        return ";\n".join([f'"{book[0]}" - {book[1]}' for book in self.list_of_books])
     
 my_library = Library()
 my_library.add_book('Война и мир', 'Лев Толстой')
@@ -56,4 +53,5 @@ print('Война и мир' in my_library)
 
 my_library.add_book('Мертвые души', 'Николай Гоголь').add_book('Муму', 'Иван Тургенев').remove_book('Ревизор')
 print(my_library[::])
+print(str(my_library))
 
