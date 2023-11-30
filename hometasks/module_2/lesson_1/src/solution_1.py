@@ -1,1 +1,1 @@
-print ('tg')
+print('Hello, World!')
