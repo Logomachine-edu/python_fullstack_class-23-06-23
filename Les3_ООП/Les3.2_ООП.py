@@ -1,10 +1,5 @@
 from datetime import datetime
 
-class From_birth_year:
-    def __init__(self, name: str, birth_year: int) -> None:
-        self.name = name
-        self.age = datetime.now().year - birth_year
-
 class Person:
     population: int = 0
 
@@ -14,11 +9,11 @@ class Person:
         Person.population += 1
     
     @classmethod
-    def from_person_alt(cls, person_alt: From_birth_year) -> 'Person':
-        return cls(person_alt.name, person_alt.age)
+    def from_birth_year(cls, name: str, birth_year: int) -> 'Person':
+        return cls(name, datetime.now().year - birth_year)
     
     def __str__(self) -> str:
-        return f'Это {self.name}. Ему {self.age} лет.'
+        return f'Это {self.name}. Ему {self.age}.'
     
     @classmethod
     def display_population(cls) -> None:
@@ -26,11 +21,8 @@ class Person:
     
 person1 = Person("Андрей", 25)
 print(person1)
-
-alt_data = From_birth_year("Константин", 1975)
-person2 = Person.from_person_alt(alt_data)
+person2 = Person.from_birth_year("Игорь", 1970)
 print(person2)
-
 person3 = Person("Олег", 14)
 print(person3)
 
