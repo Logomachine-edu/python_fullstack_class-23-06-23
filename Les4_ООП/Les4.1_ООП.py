@@ -4,15 +4,15 @@ class Fountain:
     def spray_water(self) -> None:
         pass
     
-class SimpleFountain:
+class SimpleFountain(Fountain):
     def spray_water(self) -> None:
         print("Вода просто идет из фонтана")
 
-class MusicalFountain:
+class MusicalFountain(Fountain):
     def spray_water(self) -> None:
         print("Вода из фонтана идет с музыкальным сопровождением")
 
-class LightedFountain:
+class LightedFountain(Fountain):
     def spray_water(self) -> None:
         print("Вода из фонтана идет со световым сопровождением")
 
